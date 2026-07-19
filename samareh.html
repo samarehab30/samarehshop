@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ثمره | فروشگاه محصولات اصل و ارگانیک</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F0E2;
+    --cream-2:#EFE6D2;
+    --ink:#2B231C;
+    --ink-soft:#5A4E3F;
+    --saffron:#9E2B25;
+    --saffron-dark:#7C201C;
+    --gold:#C08B34;
+    --pistachio:#6E7F4F;
+    --pistachio-dark:#566442;
+    --line:rgba(43,35,28,0.14);
+    --shadow:0 10px 30px rgba(43,35,28,0.10);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Vazirmatn',Tahoma,sans-serif;
+    line-height:1.7;
+  }
+  .mono{font-family:'IBM Plex Mono','Vazirmatn',monospace; direction:ltr; unicode-bidi:isolate;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit; cursor:pointer;}
+  a{color:inherit;}
+
+  /* subtle grain texture */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.05;
+    background-image:radial-gradient(var(--ink) 1px, transparent 1px);
+    background-size:3px 3px;
+  }
+
+  header.top{
+    position:sticky; top:0; z-index:40;
+    background:rgba(246,240,226,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-inner{
+    max-width:1180px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .logo-wrap{
+    width:52px; height:52px; border-radius:50%; background:var(--saffron);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+    border:2px solid var(--gold); flex-shrink:0; position:relative;
+  }
+  .logo-wrap img{width:100%; height:100%; object-fit:cover;}
+  .logo-wrap .logo-fallback{color:var(--cream); font-weight:800; font-size:20px;}
+  .brand-text .name{font-weight:800; font-size:22px; letter-spacing:.5px;}
+  .brand-text .tag{font-size:12px; color:var(--ink-soft);}
+  .admin-btn{
+    background:transparent; border:1px solid var(--line); color:var(--ink-soft);
+    padding:8px 14px; border-radius:999px; font-size:13px; display:flex; align-items:center; gap:6px;
+  }
+  .admin-btn:hover{border-color:var(--saffron); color:var(--saffron);}
+
+  /* HERO */
+  .hero{
+    max-width:1180px; margin:0 auto; padding:56px 24px 30px;
+    display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center;
+  }
+  .hero h1{
+    font-size:44px; font-weight:900; margin:0 0 14px; line-height:1.25;
+  }
+  .hero h1 span{color:var(--saffron);}
+  .hero p.lead{font-size:16px; color:var(--ink-soft); max-width:46ch; margin:0 0 26px;}
+  .hero .cta{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--saffron); color:var(--cream); border:none;
+    padding:13px 26px; border-radius:10px; font-weight:700; font-size:15px;
+  }
+  .hero .cta:hover{background:var(--saffron-dark);}
+  .seal{
+    width:230px; height:230px; margin:0 auto; position:relative;
+  }
+  .seal svg{width:100%; height:100%;}
+
+  /* CATEGORY BAR */
+  .cat-bar{
+    position:sticky; top:82px; z-index:30;
+    background:var(--cream); border-bottom:1px solid var(--line);
+  }
+  .cat-inner{
+    max-width:1180px; margin:0 auto; padding:12px 24px;
+    display:flex; gap:10px; overflow-x:auto; scrollbar-width:none;
+  }
+  .cat-inner::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:0 0 auto; padding:8px 18px; border-radius:999px; border:1px solid var(--line);
+    background:#fff; font-size:13.5px; color:var(--ink-soft); white-space:nowrap;
+  }
+  .chip.active{background:var(--ink); color:var(--cream); border-color:var(--ink);}
+
+  main{max-width:1180px; margin:0 auto; padding:32px 24px 80px; position:relative; z-index:1;}
+  .section-title{
+    display:flex; align-items:baseline; gap:10px; margin-bottom:20px;
+  }
+  .section-title h2{font-size:20px; font-weight:800; margin:0;}
+  .section-title .count{font-size:13px; color:var(--ink-soft);}
+
+  .grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+  }
+  @media (max-width:980px){ .grid{grid-template-columns:repeat(2,1fr);} .hero{grid-template-columns:1fr; text-align:center;} .hero p.lead{margin-inline:auto;} }
+  @media (max-width:560px){ .grid{grid-template-columns:1fr;} .hero h1{font-size:32px;} }
+
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    position:relative; box-shadow:var(--shadow); display:flex; flex-direction:column;
+    transition:transform .15s ease;
+  }
+  .card:hover{transform:translateY(-4px);}
+  .card .img-box{
+    aspect-ratio:1/1; background:var(--cream-2); position:relative; overflow:hidden;
+  }
+  .card .img-box img{width:100%; height:100%; object-fit:cover;}
+  .card .img-box .noimg{
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    color:var(--ink-soft); font-size:12px;
+  }
+  .badge-organic{
+    position:absolute; top:10px; left:10px; background:var(--pistachio); color:#fff;
+    font-size:11px; padding:4px 9px; border-radius:999px; display:flex; align-items:center; gap:4px;
+    box-shadow:0 2px 6px rgba(0,0,0,.15);
+  }
+  .card .body{padding:14px 14px 16px; display:flex; flex-direction:column; gap:8px; flex:1;}
+  .card .cat-label{font-size:11px; color:var(--gold); font-weight:600;}
+  .card h3{font-size:16px; margin:0; font-weight:700;}
+  .card .price-row{
+    margin-top:auto; display:flex; align-items:center; justify-content:space-between;
+    padding-top:8px; border-top:1px dashed var(--line);
+  }
+  .card .price{font-size:16px; font-weight:600; color:var(--saffron-dark);}
+  .card .price .unit{font-size:11px; color:var(--ink-soft); font-family:'Vazirmatn'; margin-right:4px;}
+  .card .view-btn{
+    border:none; background:var(--ink); color:var(--cream); padding:7px 14px;
+    border-radius:8px; font-size:12.5px;
+  }
+  .admin-actions{display:flex; gap:6px; margin-top:6px;}
+  .icon-btn{
+    border:1px solid var(--line); background:#fff; border-radius:8px; padding:5px 10px; font-size:12px; color:var(--ink-soft);
+  }
+  .icon-btn.danger{color:var(--saffron); border-color:var(--saffron);}
+
+  .empty-state{
+    text-align:center; padding:60px 20px; border:1.5px dashed var(--line); border-radius:16px; color:var(--ink-soft);
+  }
+  .empty-state h3{color:var(--ink); margin-bottom:6px;}
+
+  /* MODAL BASE */
+  .overlay{
+    position:fixed; inset:0; background:rgba(43,35,28,.55); z-index:100;
+    display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal{
+    background:var(--cream); border-radius:18px; max-width:900px; width:100%;
+    max-height:88vh; overflow:auto; box-shadow:0 30px 60px rgba(0,0,0,.3); position:relative;
+  }
+  .modal.small{max-width:480px;}
+  .modal-close{
+    position:sticky; top:12px; float:left; margin-left:12px; margin-top:12px;
+    background:#fff; border:1px solid var(--line); border-radius:50%; width:34px; height:34px;
+    display:flex; align-items:center; justify-content:center; font-size:16px; z-index:5;
+  }
+  .modal-pad{padding:8px 28px 28px;}
+
+  /* PRODUCT DETAIL */
+  .pd-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media (max-width:700px){ .pd-grid{grid-template-columns:1fr;} }
+  .pd-main-img{
+    aspect-ratio:1/1; border-radius:14px; overflow:hidden; background:var(--cream-2); border:1px solid var(--line);
+  }
+  .pd-main-img img{width:100%;height:100%;object-fit:cover;}
+  .pd-thumbs{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;}
+  .pd-thumbs img{
+    width:60px; height:60px; object-fit:cover; border-radius:8px; border:2px solid transparent; opacity:.7;
+  }
+  .pd-thumbs img.active{border-color:var(--saffron); opacity:1;}
+  .pd-info h2{font-size:24px; margin:6px 0 4px;}
+  .pd-info .price{font-size:22px; color:var(--saffron-dark); font-weight:700; margin:12px 0;}
+  .pd-info .desc{color:var(--ink-soft); font-size:14.5px; margin-bottom:18px;}
+  .contact-row{display:flex; flex-wrap:wrap; gap:10px;}
+  .contact-chip{
+    display:flex; align-items:center; gap:8px; padding:10px 16px; border-radius:10px;
+    border:1px solid var(--line); background:#fff; font-size:13.5px; font-weight:600;
+  }
+  .contact-chip:hover{border-color:var(--gold);}
+  .contact-chip .dot{width:8px; height:8px; border-radius:50%; background:var(--gold);}
+
+  /* FOOTER (Digikala-style multi-column) */
+  footer{
+    border-top:1px solid var(--line); margin-top:40px; background:var(--cream-2);
+  }
+  .footer-cols{
+    max-width:1180px; margin:0 auto; padding:44px 24px 30px;
+    display:grid; grid-template-columns:1.3fr 1fr 1fr 1.2fr; gap:30px;
+  }
+  @media (max-width:860px){ .footer-cols{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .footer-cols{grid-template-columns:1fr;} }
+  .footer-col h4{
+    font-size:14px; font-weight:800; margin:0 0 14px; color:var(--ink);
+    padding-bottom:8px; border-bottom:2px solid var(--gold); display:inline-block;
+  }
+  .footer-col p{font-size:13px; color:var(--ink-soft); margin:0 0 14px; line-height:1.9;}
+  .footer-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px;}
+  .footer-col ul li{font-size:13px; color:var(--ink-soft);}
+  .footer-col ul li button{
+    background:none; border:none; color:var(--ink-soft); font-family:inherit; font-size:13px; padding:0; cursor:pointer;
+  }
+  .footer-col ul li button:hover{color:var(--saffron);}
+  .footer-brand{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .footer-brand .flogo{
+    width:38px; height:38px; border-radius:50%; background:var(--saffron); display:flex; align-items:center; justify-content:center;
+    color:var(--cream); font-weight:800; overflow:hidden; flex-shrink:0; border:2px solid var(--gold);
+  }
+  .footer-brand .flogo img{width:100%; height:100%; object-fit:cover;}
+  .footer-brand .fname{font-weight:800; font-size:16px;}
+  .footer-contacts-list{display:flex; flex-direction:column; gap:9px;}
+  .footer-contacts-list a{font-size:13px; color:var(--ink-soft); display:flex; align-items:center; gap:8px;}
+  .footer-contacts-list a:hover{color:var(--saffron);}
+  .footer-contacts-list .dot{width:7px; height:7px; border-radius:50%; background:var(--gold); flex-shrink:0;}
+  .footer-bottom{border-top:1px solid var(--line);}
+  .footer-bottom-inner{
+    max-width:1180px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between;
+    font-size:12px; color:var(--ink-soft);
+  }
+  .scroll-top-btn{
+    width:34px; height:34px; border-radius:50%; border:1px solid var(--line); background:#fff; color:var(--ink-soft); font-size:15px;
+  }
+  .scroll-top-btn:hover{color:var(--saffron); border-color:var(--saffron);}
+
+  /* REVIEWS */
+  .reviews-section{margin-top:26px; padding-top:20px; border-top:1px solid var(--line);}
+  .reviews-section h3{font-size:16px; margin:0 0 4px;}
+  .reviews-avg{display:flex; align-items:center; gap:8px; margin-bottom:16px; font-size:13.5px; color:var(--ink-soft);}
+  .stars{color:var(--gold); font-size:15px; letter-spacing:1px;}
+  .review-item{padding:12px 0; border-bottom:1px dashed var(--line);}
+  .review-item:last-child{border-bottom:none;}
+  .review-item .rh{display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;}
+  .review-item .rname{font-weight:700; font-size:13.5px;}
+  .review-item .rdate{font-size:11px; color:var(--ink-soft);}
+  .review-item .rtext{font-size:13.5px; color:var(--ink-soft); line-height:1.8;}
+  .review-item .rdel{border:none; background:none; color:var(--saffron); font-size:12px; cursor:pointer;}
+  .review-form{margin-top:18px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px;}
+  .review-form h4{margin:0 0 12px; font-size:13.5px;}
+  .star-picker{display:flex; gap:4px; margin-bottom:12px; direction:ltr; justify-content:flex-end;}
+  .star-picker span{font-size:24px; color:var(--line); cursor:pointer;}
+  .star-picker span.filled{color:var(--gold);}
+  .no-reviews{font-size:13px; color:var(--ink-soft); margin-bottom:10px;}
+
+  /* FORMS */
+  .form-group{margin-bottom:16px;}
+  .form-group label{display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--ink-soft);}
+  .form-group input[type=text], .form-group input[type=number], .form-group input[type=password], .form-group textarea, .form-group select{
+    width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:#fff;
+    font-family:inherit; font-size:14px; color:var(--ink);
+  }
+  .form-group textarea{min-height:90px; resize:vertical;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:520px){.form-row{grid-template-columns:1fr;}}
+  .toggle-row{display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600;}
+  .btn{
+    border:none; padding:11px 20px; border-radius:9px; font-weight:700; font-size:14px;
+  }
+  .btn-primary{background:var(--saffron); color:#fff;}
+  .btn-primary:hover{background:var(--saffron-dark);}
+  .btn-ghost{background:transparent; border:1px solid var(--line); color:var(--ink-soft);}
+  .btn-danger{background:transparent; border:1px solid var(--saffron); color:var(--saffron);}
+
+  .img-upload-zone{
+    border:1.5px dashed var(--line); border-radius:12px; padding:16px; text-align:center; font-size:13px; color:var(--ink-soft);
+    cursor:pointer; background:#fff;
+  }
+  .thumb-list{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;}
+  .thumb-item{position:relative; width:70px; height:70px; border-radius:8px; overflow:hidden; border:1px solid var(--line);}
+  .thumb-item img{width:100%; height:100%; object-fit:cover;}
+  .thumb-item button{
+    position:absolute; top:2px; left:2px; background:rgba(43,35,28,.75); color:#fff; border:none;
+    width:18px; height:18px; border-radius:50%; font-size:11px; line-height:1; padding:0;
+  }
+
+  .admin-tabs{display:flex; gap:8px; margin-bottom:20px; border-bottom:1px solid var(--line); flex-wrap:wrap;}
+  .admin-tab{
+    padding:9px 16px; border:none; background:transparent; font-size:13.5px; font-weight:600; color:var(--ink-soft);
+    border-bottom:2px solid transparent;
+  }
+  .admin-tab.active{color:var(--saffron); border-color:var(--saffron);}
+
+  .product-row{
+    display:flex; align-items:center; gap:12px; padding:10px; border:1px solid var(--line); border-radius:10px; margin-bottom:8px; background:#fff;
+  }
+  .product-row img{width:46px; height:46px; border-radius:8px; object-fit:cover; background:var(--cream-2);}
+  .product-row .grow{flex:1; min-width:0;}
+  .product-row .grow .n{font-weight:700; font-size:14px;}
+  .product-row .grow .p{font-size:12.5px; color:var(--ink-soft);}
+
+  .toast{
+    position:fixed; bottom:22px; right:22px; background:var(--ink); color:var(--cream); padding:12px 20px;
+    border-radius:10px; font-size:13.5px; z-index:200; box-shadow:var(--shadow); opacity:0; transform:translateY(10px);
+    transition:all .25s ease; pointer-events:none;
+  }
+  .toast.show{opacity:1; transform:translateY(0);}
+
+  .loading-dim{opacity:.5; pointer-events:none;}
+  .small-note{font-size:11.5px; color:var(--ink-soft); margin-top:4px;}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="logo-wrap" id="logoWrap">
+        <span class="logo-fallback">ث</span>
+      </div>
+      <div class="brand-text">
+        <div class="name" id="siteName">ثمره</div>
+        <div class="tag">محصولات اصل و ارگانیک</div>
+      </div>
+    </div>
+    <button class="admin-btn" id="adminEntryBtn">⚙ مدیریت</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>طعمی که <span>اصل</span> است،<br>از دل طبیعت ایران</h1>
+    <p class="lead">زعفران فرد اعلاء، سوهان اصیل قم، برنج مرغوب و دیگر محصولات ارگانیک — دست‌چین‌شده و بی‌واسطه، مستقیم به دست شما.</p>
+    <button class="cta" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">مشاهده محصولات ↓</button>
+  </div>
+  <div class="seal">
+    <svg viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="92" fill="none" stroke="#9E2B25" stroke-width="3" stroke-dasharray="4 6"/>
+      <circle cx="100" cy="100" r="76" fill="#9E2B25"/>
+      <circle cx="100" cy="100" r="76" fill="none" stroke="#C08B34" stroke-width="2"/>
+      <text x="100" y="92" text-anchor="middle" fill="#F6F0E2" font-size="30" font-weight="800" font-family="Vazirmatn">ثمره</text>
+      <text x="100" y="118" text-anchor="middle" fill="#F6F0E2" font-size="12" font-family="Vazirmatn">اصل و ارگانیک</text>
+    </svg>
+  </div>
+</section>
+
+<div class="cat-bar">
+  <div class="cat-inner" id="catBar"></div>
+</div>
+
+<main id="catalog">
+  <div class="section-title">
+    <h2>محصولات</h2>
+    <span class="count" id="prodCount"></span>
+  </div>
+  <div id="gridArea"></div>
+</main>
+
+<footer>
+  <div class="footer-cols" id="footerCols"></div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <span id="footerCopy">© ثمره — کلیه حقوق این وب‌سایت محفوظ است.</span>
+      <button id="scrollTopBtn" class="scroll-top-btn" title="بازگشت به بالا">↑</button>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+<div id="modalRoot"></div>
+
+<script>
+(function(){
+
+/* =====================================================================
+   تنظیمات دیتابیس دائمی (Supabase)
+   ---------------------------------------------------------------------
+   برای اینکه پنل مدیریت روی گیت‌هاب (یا هر هاست استاتیک دیگری) هم کار کند،
+   دو مقدار زیر را پس از ساخت پروژه رایگان در supabase.com اینجا paste کنید:
+   1) SUPABASE_URL      → از Project Settings > API
+   2) SUPABASE_ANON_KEY → از همان صفحه، مقدار anon public
+   اگر این دو مقدار خالی بمانند، سایت به‌صورت خودکار از حافظه‌ی داخلی
+   Claude (window.storage) استفاده می‌کند که فقط داخل claude.ai کار می‌کند.
+===================================================================== */
+const SUPABASE_URL = '';
+const SUPABASE_ANON_KEY = '';
+const USE_SUPABASE = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
+
+async function sbFetch(path, options={}){
+  const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
+    ...options,
+    headers: {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': (options.headers && options.headers.Prefer) || 'return=representation',
+      ...(options.headers||{})
+    }
+  });
+  if(!res.ok){
+    const t = await res.text().catch(()=> '');
+    throw new Error('خطای دیتابیس (' + res.status + '): ' + t);
+  }
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+function dataURLtoBlob(dataUrl){
+  const parts = dataUrl.split(',');
+  const mimeMatch = parts[0].match(/data:(.*?);base64/);
+  const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
+  const bin = atob(parts[1]);
+  const arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], {type: mime});
+}
+
+async function sbUploadFile(blob, path){
+  const res = await fetch(SUPABASE_URL + '/storage/v1/object/product-images/' + path, {
+    method:'POST',
+    headers:{
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization':'Bearer ' + SUPABASE_ANON_KEY,
+      'Content-Type': blob.type || 'image/jpeg'
+    },
+    body: blob
+  });
+  if(!res.ok){
+    const t = await res.text().catch(()=> '');
+    throw new Error('آپلود تصویر ناموفق بود (' + res.status + '): ' + t);
+  }
+  return SUPABASE_URL + '/storage/v1/object/public/product-images/' + path;
+}
+
+/* ---------------- storage helpers (Claude artifact fallback) ---------------- */
+async function storeGet(key, shared){
+  try{
+    const r = await window.storage.get(key, shared);
+    return r ? r.value : null;
+  }catch(e){ return null; }
+}
+async function storeSet(key, value, shared){
+  try{
+    await window.storage.set(key, value, shared);
+    return true;
+  }catch(e){ console.error('storage set failed', e); return false; }
+}
+async function storeDelete(key, shared){
+  try{ await window.storage.delete(key, shared); }catch(e){}
+}
+async function storeList(prefix, shared){
+  try{
+    const r = await window.storage.list(prefix, shared);
+    return r ? r.keys : [];
+  }catch(e){ return []; }
+}
+
+const DEFAULT_SETTINGS = {
+  siteName: 'ثمره',
+  logo: '',
+  adminPassword: '1234',
+  aboutText: 'ثمره عرضه‌کننده محصولات اصل و ارگانیک ایرانی است؛ از زعفران فرد اعلاء گرفته تا سوهان و برنج مرغوب، دست‌چین‌شده و بی‌واسطه.',
+  contacts: {
+    instagram: '',
+    telegram: '',
+    bale: '',
+    eitaa: ''
+  }
+};
+
+let settings = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
+let products = []; // {id,name,category,price,unit,organic,description,images:[]}
+let isAdmin = false;
+let activeCategory = 'all';
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+/* ---------------- image compression ---------------- */
+const SUPPORTED_TYPES = ['image/jpeg','image/png','image/webp','image/gif'];
+
+function compressImage(file, maxDim, quality){
+  return new Promise((resolve, reject)=>{
+    if(file.type && !SUPPORTED_TYPES.includes(file.type)){
+      reject(new Error('فرمت «' + (file.type || 'نامشخص') + '» پشتیبانی نمی‌شود. لطفاً از JPG یا PNG استفاده کنید.'));
+      return;
+    }
+    if(file.size > 25 * 1024 * 1024){
+      reject(new Error('حجم فایل بیش از حد مجاز است (حداکثر ۲۵ مگابایت برای هر عکس).'));
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = e=>{
+      const img = new Image();
+      img.onload = ()=>{
+        try{
+          let w = img.width, h = img.height;
+          if(!w || !h){ reject(new Error('امکان خواندن ابعاد تصویر نبود.')); return; }
+          if(w > h && w > maxDim){ h = Math.round(h * maxDim / w); w = maxDim; }
+          else if(h > maxDim){ w = Math.round(w * maxDim / h); h = maxDim; }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          const out = canvas.toDataURL('image/jpeg', quality);
+          if(!out || out === 'data:,'){ reject(new Error('خروجی تصویر خالی بود.')); return; }
+          resolve(out);
+        }catch(err){
+          reject(new Error('خطا در پردازش تصویر: ' + (err && err.message ? err.message : err)));
+        }
+      };
+      img.onerror = ()=> reject(new Error('این فایل به‌عنوان تصویر قابل‌نمایش نیست (اگر از آیفون است، احتمالاً فرمت HEIC است — از تنظیمات دوربین «سازگارترین/Most Compatible» را انتخاب کنید یا عکس را به JPG تبدیل کنید).'));
+      img.src = e.target.result;
+    };
+    reader.onerror = ()=> reject(new Error('خطا در خواندن فایل از دستگاه شما.'));
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------------- row <-> object mappers (Supabase) ---------------- */
+function sbRowToSettings(row){
+  return {
+    siteName: row.site_name || DEFAULT_SETTINGS.siteName,
+    logo: row.logo_url || '',
+    adminPassword: row.admin_password || DEFAULT_SETTINGS.adminPassword,
+    aboutText: row.about_text || DEFAULT_SETTINGS.aboutText,
+    contacts: {
+      instagram: row.contact_instagram || '',
+      telegram: row.contact_telegram || '',
+      bale: row.contact_bale || '',
+      eitaa: row.contact_eitaa || ''
+    }
+  };
+}
+function sbSettingsToRow(s){
+  return {
+    id: 1,
+    site_name: s.siteName,
+    logo_url: s.logo,
+    admin_password: s.adminPassword,
+    about_text: s.aboutText,
+    contact_instagram: s.contacts.instagram,
+    contact_telegram: s.contacts.telegram,
+    contact_bale: s.contacts.bale,
+    contact_eitaa: s.contacts.eitaa
+  };
+}
+function sbRowToProduct(row){
+  return {
+    id: row.id,
+    name: row.name,
+    category: row.category || '',
+    unit: row.unit || '',
+    price: (row.price===null||row.price===undefined) ? '' : row.price,
+    description: row.description || '',
+    organic: !!row.organic,
+    images: row.images || [],
+    createdAt: row.created_at ? new Date(row.created_at).getTime() : Date.now()
+  };
+}
+function sbProductToRow(p){
+  return {
+    id: p.id,
+    name: p.name,
+    category: p.category,
+    unit: p.unit,
+    price: (p.price===''||p.price===null||p.price===undefined) ? null : Number(p.price),
+    description: p.description,
+    organic: !!p.organic,
+    images: p.images || [],
+    created_at: new Date(p.createdAt || Date.now()).toISOString()
+  };
+}
+
+/* ---------------- data load/save (works with either backend) ---------------- */
+async function loadAll(){
+  if(USE_SUPABASE){
+    try{
+      const rows = await sbFetch('settings?id=eq.1&select=*');
+      if(rows && rows[0]){
+        settings = Object.assign({}, DEFAULT_SETTINGS, sbRowToSettings(rows[0]));
+      } else {
+        await sbFetch('settings', {method:'POST', headers:{Prefer:'resolution=merge-duplicates'}, body: JSON.stringify([sbSettingsToRow(settings)])});
+      }
+    }catch(e){ console.error(e); toast('اتصال به دیتابیس ناموفق بود'); }
+
+    try{
+      const rows = await sbFetch('products?select=*&order=created_at.asc');
+      products = (rows||[]).map(sbRowToProduct);
+    }catch(e){ console.error(e); products = []; }
+
+  } else {
+    const s = await storeGet('site:settings', true);
+    if(s){
+      try{
+        const parsed = JSON.parse(s);
+        settings = Object.assign({}, DEFAULT_SETTINGS, parsed, {contacts: Object.assign({}, DEFAULT_SETTINGS.contacts, parsed.contacts||{})});
+      }catch(e){}
+    } else {
+      await storeSet('site:settings', JSON.stringify(settings), true);
+    }
+    const keys = await storeList('product:', true);
+    const results = await Promise.all(keys.map(k => storeGet(k, true)));
+    products = results.filter(Boolean).map(v=>{ try{ return JSON.parse(v); }catch(e){ return null; } }).filter(Boolean);
+    products.sort((a,b)=> (a.createdAt||0) - (b.createdAt||0));
+  }
+
+  renderAll();
+}
+
+async function saveSettings(){
+  if(USE_SUPABASE){
+    try{
+      await sbFetch('settings', {method:'POST', headers:{Prefer:'resolution=merge-duplicates'}, body: JSON.stringify([sbSettingsToRow(settings)])});
+      return true;
+    }catch(e){ console.error(e); return false; }
+  }
+  return storeSet('site:settings', JSON.stringify(settings), true);
+}
+
+async function saveProduct(p){
+  if(!p.id) p.id = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+  if(USE_SUPABASE){
+    try{
+      await sbFetch('products', {method:'POST', headers:{Prefer:'resolution=merge-duplicates'}, body: JSON.stringify([sbProductToRow(p)])});
+      return p;
+    }catch(e){ console.error(e); toast('خطای دیتابیس: ' + e.message); return null; }
+  }
+  const ok = await storeSet('product:' + p.id, JSON.stringify(p), true);
+  return ok ? p : null;
+}
+
+async function deleteProductStore(id){
+  if(USE_SUPABASE){
+    try{ await sbFetch('products?id=eq.' + id, {method:'DELETE', headers:{Prefer:'return=minimal'}}); }
+    catch(e){ console.error(e); toast('خطا در حذف محصول از دیتابیس'); }
+    return;
+  }
+  await storeDelete('product:' + id, true);
+}
+
+async function uploadProductImage(file, folder){
+  const dataUrl = await compressImage(file, folder==='logo' ? 400 : 1100, folder==='logo' ? 0.8 : 0.75);
+  if(!USE_SUPABASE) return dataUrl;
+  const blob = dataURLtoBlob(dataUrl);
+  const path = folder + '/' + Date.now() + '_' + Math.random().toString(36).slice(2,8) + '.jpg';
+  return sbUploadFile(blob, path);
+}
+
+function sbRowToReview(row){
+  return {
+    id: row.id,
+    productId: row.product_id,
+    name: row.name,
+    rating: row.rating,
+    comment: row.comment || '',
+    createdAt: row.created_at ? new Date(row.created_at).getTime() : Date.now()
+  };
+}
+function sbReviewToRow(r){
+  return {
+    id: r.id,
+    product_id: r.productId,
+    name: r.name,
+    rating: r.rating,
+    comment: r.comment,
+    created_at: new Date(r.createdAt || Date.now()).toISOString()
+  };
+}
+
+async function loadReviews(productId){
+  if(USE_SUPABASE){
+    try{
+      const rows = await sbFetch('reviews?product_id=eq.' + productId + '&select=*&order=created_at.desc');
+      return (rows||[]).map(sbRowToReview);
+    }catch(e){ console.error(e); return []; }
+  }
+  const keys = await storeList('review:' + productId + ':', true);
+  const vals = await Promise.all(keys.map(k => storeGet(k, true)));
+  return vals.filter(Boolean)
+    .map(v=>{ try{ return JSON.parse(v); }catch(e){ return null; } })
+    .filter(Boolean)
+    .sort((a,b)=> (b.createdAt||0) - (a.createdAt||0));
+}
+async function saveReview(r){
+  if(!r.id) r.id = 'r_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+  if(USE_SUPABASE){
+    try{
+      await sbFetch('reviews', {method:'POST', headers:{Prefer:'resolution=merge-duplicates'}, body: JSON.stringify([sbReviewToRow(r)])});
+      return true;
+    }catch(e){ console.error(e); return false; }
+  }
+  return storeSet('review:' + r.productId + ':' + r.id, JSON.stringify(r), true);
+}
+async function deleteReviewStore(productId, id){
+  if(USE_SUPABASE){
+    try{ await sbFetch('reviews?id=eq.' + id, {method:'DELETE', headers:{Prefer:'return=minimal'}}); }
+    catch(e){ console.error(e); }
+    return;
+  }
+  await storeDelete('review:' + productId + ':' + id, true);
+}
+
+/* ---------------- rendering ---------------- */
+function renderAll(){
+  renderHeader();
+  renderCatBar();
+  renderGrid();
+  renderFooterCols();
+}
+
+function renderHeader(){
+  document.getElementById('siteName').textContent = settings.siteName || 'ثمره';
+  const wrap = document.getElementById('logoWrap');
+  if(settings.logo){
+    wrap.innerHTML = `<img src="${settings.logo}" alt="لوگو">`;
+  } else {
+    wrap.innerHTML = `<span class="logo-fallback">${(settings.siteName||'ث')[0]}</span>`;
+  }
+}
+
+function categories(){
+  const set = new Set(products.map(p=>p.category).filter(Boolean));
+  return Array.from(set);
+}
+
+function renderCatBar(){
+  const bar = document.getElementById('catBar');
+  const cats = categories();
+  let html = `<button class="chip ${activeCategory==='all'?'active':''}" data-cat="all">همه</button>`;
+  cats.forEach(c=>{
+    html += `<button class="chip ${activeCategory===c?'active':''}" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`;
+  });
+  bar.innerHTML = html;
+  bar.querySelectorAll('.chip').forEach(btn=>{
+    btn.onclick = ()=>{ activeCategory = btn.dataset.cat; renderCatBar(); renderGrid(); };
+  });
+}
+
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function formatPrice(p){
+  if(p === '' || p === null || p === undefined) return '—';
+  const n = Number(p);
+  if(isNaN(n)) return escapeHtml(p);
+  return n.toLocaleString('fa-IR');
+}
+
+function renderGrid(){
+  const area = document.getElementById('gridArea');
+  const list = products.filter(p => activeCategory==='all' || p.category===activeCategory);
+  document.getElementById('prodCount').textContent = list.length ? `${list.length.toLocaleString('fa-IR')} کالا` : '';
+
+  if(list.length === 0){
+    area.innerHTML = `
+      <div class="empty-state">
+        <h3>${products.length===0 ? 'هنوز محصولی اضافه نشده' : 'کالایی در این دسته نیست'}</h3>
+        <p>${isAdmin ? 'از پنل مدیریت، اولین محصول را اضافه کنید.' : 'به‌زودی محصولات جدید اضافه می‌شود.'}</p>
+      </div>`;
+    return;
+  }
+
+  area.innerHTML = `<div class="grid">${list.map(cardHtml).join('')}</div>`;
+
+  area.querySelectorAll('[data-view]').forEach(el=>{
+    el.onclick = ()=> openProductModal(el.dataset.view);
+  });
+  area.querySelectorAll('[data-edit]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); openProductForm(el.dataset.edit); };
+  });
+  area.querySelectorAll('[data-del]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); confirmDeleteProduct(el.dataset.del); };
+  });
+}
+
+function cardHtml(p){
+  const img = (p.images && p.images[0]) ? `<img src="${p.images[0]}" alt="${escapeHtml(p.name)}">` : `<div class="noimg">بدون تصویر</div>`;
+  return `
+  <div class="card" data-view="${p.id}">
+    <div class="img-box">
+      ${img}
+      ${p.organic ? `<span class="badge-organic">✓ ارگانیک اصل</span>` : ''}
+    </div>
+    <div class="body">
+      ${p.category ? `<div class="cat-label">${escapeHtml(p.category)}</div>` : ''}
+      <h3>${escapeHtml(p.name)}</h3>
+      <div class="price-row">
+        <div class="price mono">${formatPrice(p.price)} <span class="unit">تومان${p.unit ? ' / ' + escapeHtml(p.unit) : ''}</span></div>
+        <button class="view-btn" data-view="${p.id}">مشاهده</button>
+      </div>
+      ${isAdmin ? `
+      <div class="admin-actions">
+        <button class="icon-btn" data-edit="${p.id}">ویرایش</button>
+        <button class="icon-btn danger" data-del="${p.id}">حذف</button>
+      </div>` : ''}
+    </div>
+  </div>`;
+}
+
+/* ---------------- contacts ---------------- */
+const CONTACT_META = {
+  instagram: {label:'اینستاگرام', glyph:'IG'},
+  telegram: {label:'تلگرام', glyph:'TG'},
+  bale: {label:'بله', glyph:'BL'},
+  eitaa: {label:'ایتا', glyph:'ET'}
+};
+
+function contactChipsHtml(){
+  return Object.keys(CONTACT_META).map(k=>{
+    const url = settings.contacts[k];
+    if(!url) return '';
+    const meta = CONTACT_META[k];
+    return `<a class="contact-chip" href="${escapeHtml(url)}" target="_blank" rel="noopener"><span class="dot"></span>${meta.label}</a>`;
+  }).join('');
+}
+
+function footerContactLinksHtml(){
+  const rows = Object.keys(CONTACT_META).map(k=>{
+    const url = settings.contacts[k];
+    if(!url) return '';
+    return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener"><span class="dot"></span>${CONTACT_META[k].label}</a>`;
+  }).join('');
+  return rows || `<span style="font-size:13px;color:var(--ink-soft);">هنوز راه ارتباطی ثبت نشده</span>`;
+}
+
+function renderFooterCols(){
+  const el = document.getElementById('footerCols');
+  const cats = categories();
+  el.innerHTML = `
+    <div class="footer-col">
+      <div class="footer-brand">
+        <div class="flogo">${settings.logo ? `<img src="${settings.logo}">` : (settings.siteName||'ث')[0]}</div>
+        <div class="fname">${escapeHtml(settings.siteName)}</div>
+      </div>
+      <p>${escapeHtml(settings.aboutText)}</p>
+    </div>
+    <div class="footer-col">
+      <h4>دسته‌بندی محصولات</h4>
+      <ul id="footerCatList">
+        ${cats.length ? cats.map(c=>`<li><button data-fcat="${escapeHtml(c)}">${escapeHtml(c)}</button></li>`).join('') : '<li>به‌زودی...</li>'}
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>راهنمای مشتریان</h4>
+      <ul>
+        <li>راهنمای سفارش از طریق پیام‌رسان‌ها</li>
+        <li>محصولات اصل و ارگانیک، ضمانت کیفیت</li>
+        <li>ارسال پس از هماهنگی با پشتیبانی</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>ارتباط با ثمره</h4>
+      <div class="footer-contacts-list">${footerContactLinksHtml()}</div>
+    </div>
+  `;
+  el.querySelectorAll('[data-fcat]').forEach(btn=>{
+    btn.onclick = ()=>{
+      activeCategory = btn.dataset.fcat;
+      renderCatBar(); renderGrid();
+      document.getElementById('catalog').scrollIntoView({behavior:'smooth'});
+    };
+  });
+}
+
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+if(scrollTopBtn) scrollTopBtn.onclick = ()=> window.scrollTo({top:0, behavior:'smooth'});
+
+/* ---------------- product modal (view) ---------------- */
+function starsDisplayHtml(rating){
+  const r = Math.round(rating);
+  let s = '';
+  for(let i=1;i<=5;i++) s += (i<=r ? '★' : '☆');
+  return s;
+}
+
+async function openProductModal(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const imgs = (p.images && p.images.length) ? p.images : [];
+  const root = document.getElementById('modalRoot');
+  root.innerHTML = `
+    <div class="overlay" id="ovView">
+      <div class="modal">
+        <button class="modal-close" id="closeView">✕</button>
+        <div class="modal-pad" style="clear:both;">
+          <div class="pd-grid">
+            <div>
+              <div class="pd-main-img"><img id="pdMainImg" src="${imgs[0]||''}" style="${imgs.length?'':'display:none;'}" alt="${escapeHtml(p.name)}">
+                ${imgs.length?'':'<div class="noimg" style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);">بدون تصویر</div>'}
+              </div>
+              ${imgs.length>1 ? `<div class="pd-thumbs">${imgs.map((im,i)=>`<img src="${im}" class="${i===0?'active':''}" data-i="${i}">`).join('')}</div>` : ''}
+            </div>
+            <div class="pd-info">
+              ${p.category ? `<div class="cat-label">${escapeHtml(p.category)}</div>` : ''}
+              <h2>${escapeHtml(p.name)} ${p.organic?'<span class="badge-organic" style="position:static;display:inline-flex;">✓ ارگانیک اصل</span>':''}</h2>
+              <div class="price mono">${formatPrice(p.price)} تومان${p.unit ? ' / ' + escapeHtml(p.unit) : ''}</div>
+              <div class="desc">${escapeHtml(p.description || 'توضیحاتی برای این محصول ثبت نشده.')}</div>
+              <div class="small-note" style="margin-bottom:10px;">برای سفارش، از یکی از راه‌های زیر با ما در تماس باشید:</div>
+              <div class="contact-row">${contactChipsHtml() || '<span class="small-note">راه ارتباطی ثبت نشده</span>'}</div>
+            </div>
+          </div>
+          <div class="reviews-section" id="reviewsSection">
+            <h3>نظرات مشتریان</h3>
+            <p class="no-reviews">در حال بارگذاری نظرات...</p>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  const close = ()=> root.innerHTML='';
+  document.getElementById('closeView').onclick = close;
+  document.getElementById('ovView').addEventListener('click', e=>{ if(e.target.id==='ovView') close(); });
+  root.querySelectorAll('.pd-thumbs img').forEach(t=>{
+    t.onclick = ()=>{
+      document.getElementById('pdMainImg').src = imgs[+t.dataset.i];
+      root.querySelectorAll('.pd-thumbs img').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+    };
+  });
+
+  const reviews = await loadReviews(id);
+  renderReviewsSection(id, reviews);
+}
+
+let pendingRating = 0;
+
+function renderReviewsSection(productId, reviews){
+  const sec = document.getElementById('reviewsSection');
+  if(!sec) return; // modal may have been closed already
+  const avg = reviews.length ? reviews.reduce((s,r)=>s+r.rating,0) / reviews.length : 0;
+  pendingRating = 0;
+  sec.innerHTML = `
+    <h3>نظرات مشتریان</h3>
+    ${reviews.length ? `
+      <div class="reviews-avg"><span class="stars">${starsDisplayHtml(avg)}</span> ${avg.toFixed(1)} از ۵ · ${reviews.length.toLocaleString('fa-IR')} نظر</div>
+      ${reviews.map(r=>`
+        <div class="review-item">
+          <div class="rh">
+            <span class="rname">${escapeHtml(r.name)}</span>
+            <span class="rdate">${new Date(r.createdAt).toLocaleDateString('fa-IR')}</span>
+          </div>
+          <div class="stars">${starsDisplayHtml(r.rating)}</div>
+          <div class="rtext">${escapeHtml(r.comment)}</div>
+          ${isAdmin ? `<button class="rdel" data-rid="${r.id}">حذف نظر</button>` : ''}
+        </div>
+      `).join('')}
+    ` : `<p class="no-reviews">هنوز نظری برای این محصول ثبت نشده — اولین نفر باشید!</p>`}
+    <div class="review-form">
+      <h4>ثبت نظر شما</h4>
+      <div class="star-picker" id="starPicker">
+        ${[1,2,3,4,5].map(i=>`<span data-star="${i}">★</span>`).join('')}
+      </div>
+      <div class="form-group"><input type="text" id="revName" placeholder="نام شما"></div>
+      <div class="form-group"><textarea id="revComment" placeholder="نظر خود را درباره این محصول بنویسید..."></textarea></div>
+      <button class="btn btn-primary" id="submitReviewBtn">ثبت نظر</button>
+    </div>
+  `;
+  const starEls = sec.querySelectorAll('#starPicker span');
+  starEls.forEach(s=>{
+    s.onclick = ()=>{
+      pendingRating = +s.dataset.star;
+      starEls.forEach(x=> x.classList.toggle('filled', +x.dataset.star <= pendingRating));
+    };
+  });
+  sec.querySelectorAll('[data-rid]').forEach(btn=>{
+    btn.onclick = async ()=>{
+      await deleteReviewStore(productId, btn.dataset.rid);
+      const updated = await loadReviews(productId);
+      renderReviewsSection(productId, updated);
+      toast('نظر حذف شد');
+    };
+  });
+  document.getElementById('submitReviewBtn').onclick = async ()=>{
+    const name = document.getElementById('revName').value.trim();
+    const comment = document.getElementById('revComment').value.trim();
+    if(!name || !comment){ toast('نام و متن نظر را وارد کنید'); return; }
+    if(!pendingRating){ toast('لطفاً امتیاز را با کلیک روی ستاره‌ها انتخاب کنید'); return; }
+    const r = {
+      id: 'r_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
+      productId, name, comment, rating: pendingRating, createdAt: Date.now()
+    };
+    const ok = await saveReview(r);
+    if(ok){
+      toast('نظر شما ثبت شد، سپاس!');
+      const updated = await loadReviews(productId);
+      renderReviewsSection(productId, updated);
+    } else {
+      toast('خطا در ثبت نظر، دوباره تلاش کنید');
+    }
+  };
+}
+
+/* ---------------- admin: entry / login ---------------- */
+document.getElementById('adminEntryBtn').onclick = ()=>{
+  if(isAdmin){ openAdminPanel(); }
+  else { openLoginModal(); }
+};
+
+function openLoginModal(){
+  const root = document.getElementById('modalRoot');
+  root.innerHTML = `
+    <div class="overlay" id="ovLogin">
+      <div class="modal small">
+        <button class="modal-close" id="closeLogin">✕</button>
+        <div class="modal-pad" style="clear:both;">
+          <h2 style="margin-top:0;">ورود مدیر</h2>
+          <p class="small-note" style="margin-bottom:16px;">برای ویرایش سایت، رمز عبور مدیریت را وارد کنید.</p>
+          <div class="form-group">
+            <label>رمز عبور</label>
+            <input type="password" id="pwInput" placeholder="رمز عبور">
+          </div>
+          <button class="btn btn-primary" id="pwSubmit">ورود</button>
+        </div>
+      </div>
+    </div>`;
+  const close = ()=> root.innerHTML='';
+  document.getElementById('closeLogin').onclick = close;
+  document.getElementById('ovLogin').addEventListener('click', e=>{ if(e.target.id==='ovLogin') close(); });
+  const submit = ()=>{
+    const v = document.getElementById('pwInput').value;
+    if(v === settings.adminPassword){
+      isAdmin = true;
+      close();
+      toast('وارد حالت مدیریت شدید');
+      renderAll();
+      openAdminPanel();
+    } else {
+      toast('رمز عبور اشتباه است');
+    }
+  };
+  document.getElementById('pwSubmit').onclick = submit;
+  document.getElementById('pwInput').addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });
+}
+
+/* ---------------- admin panel ---------------- */
+let adminTab = 'products';
+
+function openAdminPanel(){
+  const root = document.getElementById('modalRoot');
+  root.innerHTML = `
+    <div class="overlay" id="ovAdmin">
+      <div class="modal">
+        <button class="modal-close" id="closeAdmin">✕</button>
+        <div class="modal-pad" style="clear:both;">
+          <h2 style="margin-top:0;">پنل مدیریت</h2>
+          <div style="font-size:12.5px; padding:8px 12px; border-radius:8px; margin-bottom:14px; background:${USE_SUPABASE?'rgba(110,127,79,.12)':'rgba(200,139,52,.15)'}; color:${USE_SUPABASE?'var(--pistachio-dark)':'var(--gold)'};">
+            ${USE_SUPABASE ? '✓ متصل به دیتابیس دائمی — تغییرات روی همه دستگاه‌ها و روی گیت‌هاب هم ذخیره می‌شود.' : '⚠ دیتابیس دائمی متصل نیست — تغییرات فقط داخل همین محیط Claude ذخیره می‌شود و روی گیت‌هاب پایدار نخواهد بود. برای اتصال، مقادیر SUPABASE_URL و SUPABASE_ANON_KEY را در کد وارد کنید.'}
+          </div>
+          <div class="admin-tabs">
+            <button class="admin-tab" data-tab="products">محصولات</button>
+            <button class="admin-tab" data-tab="settings">تنظیمات سایت</button>
+          </div>
+          <div id="adminBody"></div>
+          <div style="margin-top:20px; border-top:1px solid var(--line); padding-top:16px;">
+            <button class="btn btn-ghost" id="logoutBtn">خروج از حالت مدیریت</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('closeAdmin').onclick = ()=> root.innerHTML='';
+  document.getElementById('ovAdmin').addEventListener('click', e=>{ if(e.target.id==='ovAdmin') root.innerHTML=''; });
+  document.getElementById('logoutBtn').onclick = ()=>{ isAdmin = false; root.innerHTML=''; renderAll(); toast('از حالت مدیریت خارج شدید'); };
+  root.querySelectorAll('.admin-tab').forEach(b=>{
+    b.onclick = ()=>{ adminTab = b.dataset.tab; renderAdminTabs(); renderAdminBody(); };
+  });
+  renderAdminTabs();
+  renderAdminBody();
+}
+
+function renderAdminTabs(){
+  document.querySelectorAll('.admin-tab').forEach(b=>{
+    b.classList.toggle('active', b.dataset.tab === adminTab);
+  });
+}
+
+function renderAdminBody(){
+  const body = document.getElementById('adminBody');
+  if(!body) return;
+  if(adminTab === 'products'){
+    body.innerHTML = `
+      <button class="btn btn-primary" id="addProductBtn" style="margin-bottom:16px;">+ افزودن محصول جدید</button>
+      <div id="prodList"></div>
+    `;
+    document.getElementById('addProductBtn').onclick = ()=> openProductForm(null);
+    const list = document.getElementById('prodList');
+    if(products.length===0){
+      list.innerHTML = `<p class="small-note">هنوز محصولی ثبت نشده است.</p>`;
+    } else {
+      list.innerHTML = products.map(p=>`
+        <div class="product-row">
+          ${p.images && p.images[0] ? `<img src="${p.images[0]}">` : `<div style="width:46px;height:46px;border-radius:8px;background:var(--cream-2);"></div>`}
+          <div class="grow">
+            <div class="n">${escapeHtml(p.name)}</div>
+            <div class="p mono">${formatPrice(p.price)} تومان ${p.category ? '· '+escapeHtml(p.category):''}</div>
+          </div>
+          <button class="icon-btn" data-edit2="${p.id}">ویرایش</button>
+          <button class="icon-btn danger" data-del2="${p.id}">حذف</button>
+        </div>
+      `).join('');
+      list.querySelectorAll('[data-edit2]').forEach(el=> el.onclick = ()=> openProductForm(el.dataset.edit2));
+      list.querySelectorAll('[data-del2]').forEach(el=> el.onclick = ()=> confirmDeleteProduct(el.dataset.del2));
+    }
+  } else {
+    body.innerHTML = `
+      <div class="form-group">
+        <label>نام فروشگاه</label>
+        <input type="text" id="setName" value="${escapeHtml(settings.siteName)}">
+      </div>
+      <div class="form-group">
+        <label>متن درباره ما (فوتر سایت)</label>
+        <textarea id="setAbout">${escapeHtml(settings.aboutText)}</textarea>
+      </div>
+      <div class="form-group">
+        <label>لوگوی سایت</label>
+        <div class="img-upload-zone" id="logoZone">برای بارگذاری لوگو کلیک کنید</div>
+        <input type="file" id="logoInput" accept="image/*" style="display:none;">
+        ${settings.logo ? `<div class="thumb-list"><div class="thumb-item"><img src="${settings.logo}"><button id="removeLogo">✕</button></div></div>` : ''}
+      </div>
+      <div class="form-group">
+        <label>اینستاگرام (لینک کامل)</label>
+        <input type="text" id="cInstagram" value="${escapeHtml(settings.contacts.instagram)}" placeholder="https://instagram.com/...">
+      </div>
+      <div class="form-group">
+        <label>تلگرام (لینک کامل)</label>
+        <input type="text" id="cTelegram" value="${escapeHtml(settings.contacts.telegram)}" placeholder="https://t.me/...">
+      </div>
+      <div class="form-group">
+        <label>بله (لینک کامل)</label>
+        <input type="text" id="cBale" value="${escapeHtml(settings.contacts.bale)}" placeholder="https://ble.ir/...">
+      </div>
+      <div class="form-group">
+        <label>ایتا (لینک کامل)</label>
+        <input type="text" id="cEitaa" value="${escapeHtml(settings.contacts.eitaa)}" placeholder="https://eitaa.com/...">
+      </div>
+      <div class="form-group">
+        <label>تغییر رمز عبور مدیریت</label>
+        <input type="text" id="newPw" placeholder="رمز جدید (خالی بگذارید تا تغییر نکند)">
+      </div>
+      <button class="btn btn-primary" id="saveSettingsBtn">ذخیره تنظیمات</button>
+    `;
+    document.getElementById('logoZone').onclick = ()=> document.getElementById('logoInput').click();
+    document.getElementById('logoInput').onchange = async (e)=>{
+      const f = e.target.files[0];
+      if(!f) return;
+      toast('در حال پردازش لوگو...');
+      try{
+        const url = await uploadProductImage(f, 'logo');
+        settings.logo = url;
+        renderAdminBody();
+        toast('لوگو بارگذاری شد — برای ذخیره دائمی، «ذخیره تنظیمات» را بزنید');
+      }catch(err){
+        toast('خطا در بارگذاری لوگو: ' + err.message);
+      }
+      e.target.value = '';
+    };
+    const rmLogo = document.getElementById('removeLogo');
+    if(rmLogo) rmLogo.onclick = ()=>{ settings.logo=''; renderAdminBody(); };
+
+    document.getElementById('saveSettingsBtn').onclick = async ()=>{
+      settings.siteName = document.getElementById('setName').value.trim() || 'ثمره';
+      settings.aboutText = document.getElementById('setAbout').value.trim() || settings.aboutText;
+      settings.contacts.instagram = document.getElementById('cInstagram').value.trim();
+      settings.contacts.telegram = document.getElementById('cTelegram').value.trim();
+      settings.contacts.bale = document.getElementById('cBale').value.trim();
+      settings.contacts.eitaa = document.getElementById('cEitaa').value.trim();
+      const newPw = document.getElementById('newPw').value.trim();
+      if(newPw) settings.adminPassword = newPw;
+      const ok = await saveSettings();
+      toast(ok ? 'تنظیمات ذخیره شد' : 'خطا در ذخیره‌سازی');
+      renderAll();
+    };
+  }
+}
+
+/* ---------------- product form (add/edit) ---------------- */
+let formImages = [];
+
+function openProductForm(id){
+  const editing = id ? products.find(p=>p.id===id) : null;
+  formImages = editing ? [...(editing.images||[])] : [];
+  const root = document.getElementById('modalRoot');
+  root.innerHTML = `
+    <div class="overlay" id="ovForm">
+      <div class="modal">
+        <button class="modal-close" id="closeForm">✕</button>
+        <div class="modal-pad" style="clear:both;">
+          <h2 style="margin-top:0;">${editing ? 'ویرایش محصول' : 'افزودن محصول جدید'}</h2>
+          <div class="form-group">
+            <label>نام محصول</label>
+            <input type="text" id="fName" value="${editing?escapeHtml(editing.name):''}" placeholder="مثلاً زعفران فرد اعلاء">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>دسته‌بندی</label>
+              <input type="text" id="fCategory" value="${editing?escapeHtml(editing.category||''):''}" placeholder="مثلاً زعفران / سوهان / برنج">
+            </div>
+            <div class="form-group">
+              <label>واحد فروش</label>
+              <input type="text" id="fUnit" value="${editing?escapeHtml(editing.unit||''):''}" placeholder="مثلاً گرم، کیلوگرم، بسته">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>قیمت (تومان)</label>
+            <input type="number" id="fPrice" value="${editing?editing.price:''}" placeholder="مثلاً 350000">
+          </div>
+          <div class="form-group">
+            <label>توضیحات محصول</label>
+            <textarea id="fDesc" placeholder="توضیح کوتاهی درباره کیفیت و ویژگی‌های محصول...">${editing?escapeHtml(editing.description||''):''}</textarea>
+          </div>
+          <div class="form-group">
+            <label class="toggle-row"><input type="checkbox" id="fOrganic" ${editing&&editing.organic?'checked':''}> نشان «ارگانیک اصل» روی این محصول نمایش داده شود</label>
+          </div>
+          <div class="form-group">
+            <label>تصاویر محصول (می‌توانید چند عکس انتخاب کنید)</label>
+            <div class="img-upload-zone" id="imgZone">برای انتخاب عکس‌ها کلیک کنید (چند عکس هم‌زمان مجاز است)</div>
+            <input type="file" id="imgInput" accept="image/*" multiple style="display:none;">
+            <div class="thumb-list" id="thumbList"></div>
+            <div class="small-note">عکس‌ها به‌صورت خودکار فشرده می‌شوند تا حجم سایت بالا نرود.</div>
+          </div>
+          <div style="display:flex; gap:10px; margin-top:10px;">
+            <button class="btn btn-primary" id="saveProductBtn">${editing?'ذخیره تغییرات':'افزودن محصول'}</button>
+            <button class="btn btn-ghost" id="cancelFormBtn">انصراف</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  const close = ()=> root.innerHTML='';
+  document.getElementById('closeForm').onclick = close;
+  document.getElementById('cancelFormBtn').onclick = close;
+  document.getElementById('ovForm').addEventListener('click', e=>{ if(e.target.id==='ovForm') close(); });
+
+  renderThumbs();
+
+  document.getElementById('imgZone').onclick = ()=> document.getElementById('imgInput').click();
+  document.getElementById('imgInput').onchange = async (e)=>{
+    const files = Array.from(e.target.files);
+    if(!files.length) return;
+    if(formImages.length + files.length > 10){
+      toast('حداکثر ۱۰ عکس برای هر محصول مجاز است');
+    }
+    toast('در حال پردازش تصاویر...');
+    let okCount = 0;
+    for(const f of files.slice(0, Math.max(0, 10 - formImages.length))){
+      try{
+        const url = await uploadProductImage(f, 'products');
+        formImages.push(url);
+        okCount++;
+      }catch(err){
+        toast('خطا در «' + f.name + '»: ' + err.message);
+      }
+    }
+    renderThumbs();
+    if(okCount>0) toast(okCount + ' تصویر با موفقیت اضافه شد');
+    e.target.value = '';
+  };
+
+  document.getElementById('saveProductBtn').onclick = async ()=>{
+    const name = document.getElementById('fName').value.trim();
+    if(!name){ toast('نام محصول را وارد کنید'); return; }
+    const p = {
+      id: editing ? editing.id : ('p_' + Date.now() + '_' + Math.random().toString(36).slice(2,7)),
+      name,
+      category: document.getElementById('fCategory').value.trim(),
+      unit: document.getElementById('fUnit').value.trim(),
+      price: document.getElementById('fPrice').value.trim(),
+      description: document.getElementById('fDesc').value.trim(),
+      organic: document.getElementById('fOrganic').checked,
+      images: formImages,
+      createdAt: editing ? (editing.createdAt || Date.now()) : Date.now()
+    };
+    const saveBtn = document.getElementById('saveProductBtn');
+    saveBtn.disabled = true; saveBtn.textContent = 'در حال ذخیره...';
+    const saved = await saveProduct(p);
+    if(saved){
+      const idx = products.findIndex(x=>x.id===saved.id);
+      if(idx>=0) products[idx] = saved; else products.push(saved);
+      toast('محصول ذخیره شد');
+      close();
+      renderAll();
+    } else {
+      toast('خطا در ذخیره محصول');
+      saveBtn.disabled = false; saveBtn.textContent = editing?'ذخیره تغییرات':'افزودن محصول';
+    }
+  };
+}
+
+function renderThumbs(){
+  const list = document.getElementById('thumbList');
+  if(!list) return;
+  list.innerHTML = formImages.map((img,i)=>`
+    <div class="thumb-item"><img src="${img}"><button data-rm="${i}">✕</button></div>
+  `).join('');
+  list.querySelectorAll('[data-rm]').forEach(b=>{
+    b.onclick = ()=>{ formImages.splice(+b.dataset.rm,1); renderThumbs(); };
+  });
+}
+
+function confirmDeleteProduct(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const root = document.getElementById('modalRoot');
+  const prevHtml = root.innerHTML;
+  root.innerHTML = `
+    <div class="overlay" id="ovDel">
+      <div class="modal small">
+        <div class="modal-pad" style="padding-top:24px;">
+          <h3 style="margin-top:0;">حذف محصول</h3>
+          <p>آیا از حذف «${escapeHtml(p.name)}» مطمئن هستید؟ این عمل قابل بازگشت نیست.</p>
+          <div style="display:flex; gap:10px; margin-top:16px;">
+            <button class="btn btn-danger" id="confirmDel">بله، حذف شود</button>
+            <button class="btn btn-ghost" id="cancelDel">انصراف</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('cancelDel').onclick = ()=>{ root.innerHTML = prevHtml; rebindAfterRestore(); };
+  document.getElementById('confirmDel').onclick = async ()=>{
+    await deleteProductStore(id);
+    products = products.filter(x=>x.id!==id);
+    root.innerHTML='';
+    toast('محصول حذف شد');
+    renderAll();
+  };
+}
+function rebindAfterRestore(){ /* no-op placeholder if needed later */ }
+
+/* ---------------- init ---------------- */
+loadAll();
+
+})();
+</script>
+</body>
+</html>
