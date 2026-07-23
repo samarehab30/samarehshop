@@ -798,7 +798,7 @@ function cardHtml(p){
       ${p.category ? `<div class="cat-label">${escapeHtml(p.category)}</div>` : ''}
       <h3>${escapeHtml(p.name)}</h3>
       <div class="price-row">
-        <div class="price mono">${formatPrice(p.price)} <span class="unit">تومان${p.unit ? ' / ' + escapeHtml(p.unit) : ''}</span></div>
+<div class="price"><span class="mono">${formatPrice(p.price)}</span> <span class="unit">تومان${p.unit ? ' / ' + escapeHtml(p.unit) : ''}</span></div>
         <button class="view-btn" data-view="${p.id}">مشاهده</button>
       </div>
       ${isAdmin ? `
@@ -906,7 +906,7 @@ async function openProductModal(id){
             <div class="pd-info">
               ${p.category ? `<div class="cat-label">${escapeHtml(p.category)}</div>` : ''}
               <h2>${escapeHtml(p.name)} ${p.organic?'<span class="badge-organic" style="position:static;display:inline-flex;">✓ ارگانیک اصل</span>':''}</h2>
-              <div class="price mono">${formatPrice(p.price)} تومان${p.unit ? ' / ' + escapeHtml(p.unit) : ''}</div>
+              <div class="price"><span class="mono">${formatPrice(p.price)}</span> تومان${p.unit ? ' / ' + escapeHtml(p.unit) : ''}</div>
               <div class="desc">${escapeHtml(p.description || 'توضیحاتی برای این محصول ثبت نشده.')}</div>
               <div class="small-note" style="margin-bottom:10px;">برای سفارش، از یکی از راه‌های زیر با ما در تماس باشید:</div>
               <div class="contact-row">${contactChipsHtml() || '<span class="small-note">راه ارتباطی ثبت نشده</span>'}</div>
@@ -1103,7 +1103,7 @@ function renderAdminBody(){
           ${p.images && p.images[0] ? `<img src="${p.images[0]}">` : `<div style="width:46px;height:46px;border-radius:8px;background:var(--cream-2);"></div>`}
           <div class="grow">
             <div class="n">${escapeHtml(p.name)}</div>
-            <div class="p mono">${formatPrice(p.price)} تومان ${p.category ? '· '+escapeHtml(p.category):''}</div>
+           <div class="p"><span class="mono">${formatPrice(p.price)}</span> تومان ${p.category ? '· '+escapeHtml(p.category):''}</div>
           </div>
           <button class="icon-btn" data-edit2="${p.id}">ویرایش</button>
           <button class="icon-btn danger" data-del2="${p.id}">حذف</button>
